@@ -1,5 +1,6 @@
 import { getAllPuestos,getPuesto,DeletePuesto } from "../services/Puestos";
 import { useEffect, useState } from "react";
+import '.././App.css';
 import PantallaCarga from "../assets/pantalla_carga";
 
 function Puestos() {
@@ -22,7 +23,7 @@ function Puestos() {
             setLoading(true);
             try {
                 const data = await getPuesto(idBuscado);
-                setPuestos(data);º
+                setPuestos(data);
             } catch (error) {
                 setDepartamentos([]); 
             }
@@ -64,6 +65,7 @@ function Puestos() {
                     </tr>
                 </thead>
                 <tbody>
+                    
                     {Puestos.length > 0 ? (
                         Puestos.map((P) => (
                             <tr key={P.id}>
