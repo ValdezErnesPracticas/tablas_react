@@ -1,9 +1,12 @@
-import { getAllPuestos } from "../services/Puestos";
+import { getAllPuestos,getPuesto,DeletePuesto } from "../services/Puestos";
 import { useEffect, useState } from "react";
+import PantallaCarga from "../assets/pantalla_carga";
 
 function Puestos() {
     const [Puestos, setPuestos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [id, setId] = useState('');
+    const [idBuscado, setIdBuscado] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -13,11 +16,45 @@ function Puestos() {
         };
         fetchData();
     }, []);
+    useEffect(() => {
+        if (!idBuscado) return;
+        const fetchById = async () => {
+            setLoading(true);
+            try {
+                const data = await getPuesto(idBuscado);
+                setPuestos(data);º
+            } catch (error) {
+                setDepartamentos([]); 
+            }
+            setLoading(false);
+        };
+        fetchById();
+    }, [idBuscado]);
+
+     const redirigirPorId = (e) => {
+        e.preventDefault();
+        if (id.trim() === '') return;
+        setIdBuscado(id);
+    };
+
     if (loading) {
             return <PantallaCarga />;
     }    
     return (
         <>
+            <form onSubmit={redirigirPorId}>
+                <div >
+                    <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Ingrese el ID"
+                        required
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
+                    />
+                    <button type="submit">Buscar por ID</button>
+                </div>
+            </form>
             <table className="table">
                 <thead className="table-light">
                     <tr>
@@ -40,6 +77,8 @@ function Puestos() {
                                         onSubmit={(e) => {
                                             e.preventDefault();
                                             if (confirm('¿Seguro que deseas eliminar este Puesto?')) {
+                                                DeletePuesto(P.id);
+                                                setPuestos(Puestos.filter(p => p.id !== P.id));
                                             }
                                         }}
                                         className="d-inline"

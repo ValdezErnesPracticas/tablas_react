@@ -16,7 +16,6 @@ function App() {
       case 'departamentos':
         return <Departamentos />;
       case 'puestos':
-        // return <Puestos />;
         return <Puestos />;
       default:
         return null;

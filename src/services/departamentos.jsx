@@ -16,8 +16,6 @@ function getDepartamento(id) {
     return fetch(`${API_URL}/departamento/${id}`)
         .then(response => response.json())
         .then(data => {
-            console.log('sdds')
-            console.log(data);
             return data.departamentos;
         })
         .catch(error => {
@@ -61,7 +59,7 @@ function PutDepartamento(id, params) {
             throw error;
         });
 }
-function DeleteDepartamento(id) {
+function deleteDepartamento(id) {
     return fetch(`${API_URL}/departamento/${id}`, {
         method: 'DELETE',       
     })
@@ -75,4 +73,4 @@ function DeleteDepartamento(id) {
             throw error;
         });
 }
-export { getAllDepartamentos , getDepartamento, PostDepartamento, PutDepartamento, DeleteDepartamento };
+export { getAllDepartamentos , getDepartamento, PostDepartamento, PutDepartamento, deleteDepartamento };
