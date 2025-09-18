@@ -26,9 +26,10 @@ function App() {
     <div>
       <h1>Tablas:</h1>
       <div>
-        <button onClick={() => switchTable('departamentos')}>Departamentos</button>
+        <button onClick={() => switchTable('departamentos')} style={{ marginRight: "30px" }}>Departamentos</button>
         <button onClick={() => switchTable('puestos')}>Puestos</button>
       </div>
+      <br />
       <div>
         {renderTabla()}
       </div>

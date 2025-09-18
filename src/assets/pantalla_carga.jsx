@@ -2,10 +2,10 @@ import './pantalla_carga.css';
 
 function PantallaCarga() {
     return (
-        <div class="loader-container">
+        <div className="loader-container">
             <div>
-            <div class="loader"></div>
-            <div class="loading-text">Cargando, por favor espera...</div>
+            <div className="loader"></div>
+            <div className="loading-text">Cargando, por favor espera...</div>
             </div>
         </div>
     )

@@ -4,7 +4,6 @@ function getAllPuestos() {
     return fetch(`${API_URL}/puesto`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             return data.puesto;
         })
         .catch(error => {
@@ -16,15 +15,17 @@ function getPuesto(id) {
     return fetch(`${API_URL}/puesto/${id}`)
         .then(response => response.json())
         .then(data => {
-            console.log('Puesto fetched:', data);
-            return data.puesto;
+            if (data.puesto)
+                return data.puesto;
+            else
+                return [];
         })
         .catch(error => {
             console.error('Error fetching puesto:', error);
             throw error;
         });
 }
-function PostPuesto(params) {
+function postPuesto(params) {
     return fetch(`${API_URL}/puesto`, {
         method: 'POST', 
         headers: {
@@ -42,7 +43,7 @@ function PostPuesto(params) {
             throw error;
         });
 }
-function PutPuesto(id, params) {
+function putPuesto(id, params) {
     return fetch(`${API_URL}/puesto/${id}`, {
         method: 'PUT',
         headers: {
@@ -60,7 +61,7 @@ function PutPuesto(id, params) {
             throw error;
         });
 }
-function DeletePuesto(id) {
+function deletePuesto(id) {
     return fetch(`${API_URL}/puesto/${id}`, {
         method: 'DELETE',
     })
@@ -74,4 +75,4 @@ function DeletePuesto(id) {
             throw error;
         });
 } 
-export { getAllPuestos, getPuesto, PostPuesto, PutPuesto, DeletePuesto };
+export { getAllPuestos, getPuesto, postPuesto, putPuesto, deletePuesto };

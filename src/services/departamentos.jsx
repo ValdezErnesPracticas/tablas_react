@@ -16,7 +16,10 @@ function getDepartamento(id) {
     return fetch(`${API_URL}/departamento/${id}`)
         .then(response => response.json())
         .then(data => {
-            return data.departamentos;
+            if (data.departamentos)
+                return data.departamentos;
+            else
+                return [];
         })
         .catch(error => {
             console.error('Error fetching departamentos:', error);
