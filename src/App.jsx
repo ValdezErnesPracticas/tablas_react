@@ -1,8 +1,16 @@
-import './App.css';
-import { useState } from 'react';
-import Departamentos from './departamentos/departamentos.jsx';
-import Puestos from './puestos/puestos.jsx';
-// import Puestos from './puestos/puestos.jsx'; // Suponiendo que también tienes este componente
+import "./App.css";
+import { useState } from "react";
+import Departamentos from "./departamentos/departamentos.jsx";
+import Puestos from "./puestos/puestos.jsx";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+const queryClient = new QueryClient();
 
 function App() {
   const [tablaActual, setTablaActual] = useState();
@@ -13,27 +21,44 @@ function App() {
 
   const renderTabla = () => {
     switch (tablaActual) {
-      case 'departamentos':
-        return <Departamentos />;
-      case 'puestos':
-        return <Puestos />;
+      case "departamentos":
+        return (
+          <>
+            <h2>Departamentos</h2>
+            <Departamentos />
+          </>
+        );
+      case "puestos":
+        return (
+          <>
+            <h2>Puestos</h2>
+            <Puestos />
+          </>
+        );
       default:
         return null;
     }
   };
-
   return (
-    <div>
-      <h1>Tablas:</h1>
-      <div>
-        <button onClick={() => switchTable('departamentos')} style={{ marginRight: "30px" }}>Departamentos</button>
-        <button onClick={() => switchTable('puestos')}>Puestos</button>
-      </div>
-      <br />
-      <div>
-        {renderTabla()}
-      </div>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      {
+        <div>
+          <h1>Tablas:</h1>
+          <div>
+            <button
+              onClick={() => switchTable("departamentos")}
+              style={{ marginRight: "30px" }}
+            >
+              Departamentos
+            </button>
+            <button onClick={() => switchTable("puestos")}>Puestos</button>
+          </div>
+          <br />
+          <div>{renderTabla()}</div>
+        </div>
+      }
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 
